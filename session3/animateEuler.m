@@ -6,7 +6,7 @@ function animateEuler()
     initialConditions = [0; 2]; % Initial conditions [x0; v0]
     
     % Function representing the second-order differential equation: x'' = -x
-    odeFunc = @(t, y, u) [y(2)+u; -3*y(1)-0.3*y(2)+u]; 
+    odeFunc = @(t, y, u) [y(2); -3*y(1)-0.3*y(2)+u]; 
     
     % Initialize
     t = tspan(1):dt:tspan(2);
@@ -15,13 +15,13 @@ function animateEuler()
     
     % Euler method
     for i = 1:length(t)-1
-        u=50*(0-y(1,i));
+        u=5*(3-y(1,i))+10*(0-y(2,i));%full state feedback control
         y(:,i+1) = y(:,i) + dt * odeFunc(t(i), y(:,i),u);
     end
     
     % Animation
     figure;
-    axis([-2 2 -2 2]);
+    %axis([-2 2 -2 2]);
     xlabel('x');
     ylabel('y');
     title('Euler Method Animation for Second Order ODE');
